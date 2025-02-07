@@ -42,6 +42,8 @@ class CostmapNode : public rclcpp::Node {
     int default_value_; // Default value for unoccupied cells
     int max_cost;       // Maximum cost for inflated cells
     double inflation_radius; // Radius for inflation in meters
+    int origin_x;
+    int origin_y;
 
     // The 2D occupancy grid representing the costmap
     std::vector<std::vector<int>> occupancy_grid;

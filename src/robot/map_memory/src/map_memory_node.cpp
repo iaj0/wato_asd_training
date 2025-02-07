@@ -22,17 +22,17 @@ MapMemoryNode::MapMemoryNode()
   map_pub_ = this->create_publisher<nav_msgs::msg::OccupancyGrid>("/global_map", 10);
 
   timer_ = this->create_wall_timer(
-      std::chrono::milliseconds(3000), 
+      std::chrono::milliseconds(100), 
       std::bind(&MapMemoryNode::updateGlobalMap, this)
   );
   RCLCPP_INFO(this->get_logger(), "Timer created, updateGlobalMap will be called every 500ms");
 
 
   global_map_.info.resolution = 0.1;
-  global_map_.info.width = 30;
-  global_map_.info.height = 30;
-  global_map_.info.origin.position.x = -10;
-  global_map_.info.origin.position.y = -10;
+  global_map_.info.width = 300;
+  global_map_.info.height = 300;
+  global_map_.info.origin.position.x = -15;
+  global_map_.info.origin.position.y = -15;
   global_map_.info.origin.position.z = 0;
   global_map_.data.resize(global_map_.info.width * global_map_.info.height, -1);
 };
@@ -110,7 +110,6 @@ void MapMemoryNode::updateGlobalMap() {
 
   should_update_map_ = false;
 
-  // Publish the updated global map
   map_pub_->publish(global_map_);
   RCLCPP_INFO(this->get_logger(), "Published global_map_ with size: %lu", global_map_.data.size());
 }
